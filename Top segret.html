@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gauner seite</title>
+    <style>
+        #geheim-bereich { display: none ; font-family: sans-serif; padding: 20px; }
+        #chat-fenster { height: 200px ; border: 10px solid #fc0505; overflow-y: scroll; margin-bottom: 10px; padding: 10px; background: #40ff01; }
+    </style>
+</head>        
+
+    <!-- 1. Der unsichtbare Bereich -->
+    <div id="geheim-bereich">
+        <h1 id="begruessung">Willkommen!</h1>
+        
+        <audio id="Gauner" loop controls>
+            <source src="Gauner.mp3" type="audio/mpeg">
+        </audio>
+
+        <div id="chat-container" style="margin-top: 20px;">
+            <div id="chat-fenster"></div>
+            <input type="text" id="chat-eingabe" placeholder="Nachricht...">
+            <button onclick="senden()">Senden</button>
+        </div>
+    </div>
+
+    <!-- 2. Das Skript am Ende des Body -->
+    <script>
+        // Variablen global definieren
+        var benutzerName = "";
+        var passwort = "1034556"; // DEIN PASSWORT
+
+        // Abfrage starten
+        benutzerName = prompt("Dein Name:");
+        var eingabePW = prompt("Passwort:");
+
+        if (eingabePW === passwort) {
+            // Erfolg: Bereich zeigen
+            document.getElementById("geheim-bereich").style.display = "block";
+            document.getElementById("begruessung").innerText = "Hallo " + benutzerName + "!";
+            
+            // Musik starten
+            var audio = document.getElementById("meinPlayer");
+            audio.play().catch(function(e) { console.log("Autoplay blockiert"); });
+        } else {
+            alert("Falsch!");
+            window.location.reload();
+        }
+
+        // Chat-Funktion
+        function senden() {
+            var input = document.getElementById("chat-eingabe");
+            var fenster = document.getElementById("chat-fenster");
+            if (input.value !== "") {
+                fenster.innerHTML += "<p><strong>" + benutzerName + ":</strong> " + input.value + "</p>";
+                input.value = "";
+                fenster.scrollTop = fenster.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
+
+    
